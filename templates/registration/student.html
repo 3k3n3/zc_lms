@@ -1,0 +1,95 @@
+{% extends '_base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<section class="" style="width: 60%; margin-left: auto; margin-right: auto;">
+    <div class="mt-3 mb-3" style="text-align: center;">
+        <p class="h5" style="color: black;">
+            CREATE YOUR ACCOUNT
+        </p>
+        <p class="h6" style="color: navy;">
+            ALL FIELDS ARE REQUIRED
+        </p>
+        <p class="h6" style="font-size: small; color: navy;">
+            Note: This workspace requires you to register with the same email address and username as you have on the
+            slack workspace.
+        </p>
+    </div>
+    <div class="shadow-sm rounded" style="font-size: small;">
+        <form class="pt-4 pb-5" action="" method="post">
+            {% csrf_token %}
+            {{ form.media.js }}
+            <div class="row justify-content-center">
+                <div class="col-5">
+                    {{form.first_name | as_crispy_field}}
+                </div>
+                <div class="col-5">
+                    {{form.last_name | as_crispy_field}}
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-5">
+                    {{form.middle_name | as_crispy_field}}
+                </div>
+                <div class="col-5">
+                    {{form.username | as_crispy_field}}
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-5">
+                    {{form.gender | as_crispy_field}}
+                </div>
+                <div class="col-5">
+                    {{form.age | as_crispy_field}}
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-5">
+                    {{form.track | as_crispy_field}}
+                </div>
+                <div class="col-5">
+                    {{form.experience_level | as_crispy_field}}
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-5">
+                    {{form.country | as_crispy_field}}
+                </div>
+                <div class="col-5">
+                    {{form.state | as_crispy_field}}
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-10">
+                    {{form.phone | as_crispy_field}}
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-10 dropdown ">
+                    {{form.employment_status | as_crispy_field}}
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-10">
+                    {{form.email | as_crispy_field}}
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-10">
+                    {{form.password1 | as_crispy_field}}
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-10">
+                    {{form.password2 | as_crispy_field}}
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-10 d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button type="button" class="btn btn-link btn-sm"><a href="{% url 'login' %}">Already Registered?</a></button>
+                    <button type="submit" class="btn btn-sm btn-danger">Register</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock content %}

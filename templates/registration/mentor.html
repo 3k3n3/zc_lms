@@ -1,0 +1,21 @@
+{% extends '_base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<section class="container mt-4 mb-4" style="font-size: small; width: 60%;">
+    <div class="shadow-sm rounded p-5">
+        <p class="h2" style="text-align: center;">
+            Mentors' Sign-up
+        </p>
+
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.media.js }}
+            {{ form | crispy }}
+            <a class="btn btn-link " href="{% url 'login' %}">Already Registered?</a>
+            <input type="submit" class="btn btn-danger" value="Submit" />
+        </form>
+    </div>
+</section>
+
+{% endblock content %}

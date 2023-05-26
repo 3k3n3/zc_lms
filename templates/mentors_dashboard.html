@@ -1,0 +1,4 @@
+{% for submission in submissions %}
+Submitted by {{submission}} for {{submission.submitted_for}} | <a href="{% url 'subs' submission.id %}">View</a>
+<br><br>
+{% endfor %}

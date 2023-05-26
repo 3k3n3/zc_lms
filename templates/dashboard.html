@@ -1,0 +1,24 @@
+{% extends '_base.html' %}
+
+{% block content %}
+<h1>Dashboard</h1>
+{% if user.is_authenticated %}
+Welcome: {{user.username}}
+{% else %}
+Sorry nothing for you
+{% endif %}
+<br>
+<hr>
+
+{% for article in article %}
+{{article.title}}
+<br>
+Posted by: {{article.posted_by}} on {{article.posted_on}}
+<br><br>
+{% endfor %}
+
+{% block task %}
+{% include "_tasks.html" %}
+{% endblock task %}
+
+{% endblock content %}

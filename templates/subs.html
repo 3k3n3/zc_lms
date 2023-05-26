@@ -1,0 +1,32 @@
+{% extends '_base.html' %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+{{submission}}
+<br>
+{{submission.submission}}
+<br>
+{{submission.submitted_for}}
+
+
+
+<form action="" method="post">
+    {% csrf_token %}
+    {{form.media}}
+    {% comment %} {{form | crispy}} {% endcomment %}
+    <div class="row">
+        <div class="col-4" style="padding-right: 0%;">
+            {{form.score | as_crispy_field}}
+        </div>
+        <div class="col-1 p-0" style="margin-top: 32px;">
+            <span class="input-group-text" id="basic-addon1">{{submission.submitted_for.weight}}</span>
+        </div>
+        {{form.error}}
+    </div>
+    <div>
+        {{form.feedback | as_crispy_field}}
+    </div>
+
+    <button class="btn btn-danger" type="submit">Grade</button>
+</form>
+{% endblock content %}

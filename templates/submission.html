@@ -1,0 +1,22 @@
+{% extends '_base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+{{task.title}}
+<br>
+{{task.task}}
+<hr>
+
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form.media }}
+    {{form | crispy}}
+    <input class="btn btn-danger" type="submit" value="Submit">
+</form>
+
+{% endblock content %}
+
+get task name
+get submission form
+add task name auto to submission for
