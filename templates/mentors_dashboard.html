@@ -1,4 +1,40 @@
-{% for submission in submissions %}
-Submitted by {{submission}} for {{submission.submitted_for}} | <a href="{% url 'subs' submission.id %}">View</a>
-<br><br>
-{% endfor %}
+{% extends '_base.html' %}
+
+{% block content %}
+<h1>
+Submissions
+</h1>
+
+<div class="">
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col"> TASK TITLE </th>
+            <th scope="col">STUDENT NAME </th>
+            <th scope="col"> TIME STATUS </th>
+            <th scope="col"> STATUS </th>
+            <th scope="col"> -- </th>
+        </tr>
+    </thead>
+    {% for submission in submissions %}
+    <tbody>
+        <tr>
+            <td>{{submission.submitted_for}}</td>
+            <td>{{submission.submitted_by.username.first_name}}</td>
+            <td>{{submission.submitted_for.deadline | timeuntil}}</td>
+            <td>
+                {% if submission.graded_by %}
+                    graded by 
+                    {{submission.graded_by}},
+                    <br>
+                    {{submission.graded_at}}
+                {% else %}
+                    Awaiting
+                {% endif %}
+            </td>
+            <td><a href="{% url 'subs' submission.id %}">View</a></td>
+        </tr>
+    </tbody>
+    {% endfor %}
+</table>
+{% endblock content %}

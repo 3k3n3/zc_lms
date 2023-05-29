@@ -78,27 +78,39 @@ def dashboard(request):
     track = request.user.track
     article = Article.objects.all()
     task = Task.objects.filter(Q(audience=track) | Q(audience="General"))
+    submission = Submission.objects.filter(submitted_by__username=request.user)
+    total_score = sum([s.score for s in submission])
+    total_weight = sum([t.weight for t in task])
 
     context = {
         "article": article,
         "task": task,
+        "total_score": total_score,
+        "total_weight": total_weight,
+        "points": total_score / total_weight * 100,
     }
     return render(request, "dashboard.html", context)
 
 
 def mentors_dashboard(request):
     """Dashboard for mentors."""
+    if not Mentor.objects.filter(username=request.user).exists():
+        return redirect("dashboard")
+
     submissions = Submission.objects.filter(
         Q(audience=request.user.track) | Q(audience="General")
-    )
+    ).order_by("graded_by")
     context = {
         "submissions": submissions,
     }
     return render(request, "mentors_dashboard.html", context)
 
 
-##Add only menor access
-def submission(request, id):
+def grade_submission(request, id):
+    """Grade Submissions."""
+    if not Mentor.objects.filter(username=request.user).exists():
+        return redirect("dashboard")
+
     submission = Submission.objects.get(id=id)
     form = TaskSubmissionGradingForm(instance=submission)
     if request.method == "POST":
@@ -112,4 +124,8 @@ def submission(request, id):
         "submission": submission,
         "form": form,
     }
-    return render(request, "subs.html", context)
+    return render(request, "grade_submission.html", context)
+
+
+def logger(request):
+    return request.user

@@ -1,5 +1,5 @@
 from django.db import models
-from accounts.models import CustomUser, Student, Mentor
+from accounts.models import Student, Mentor
 from django.core.validators import MaxValueValidator, MinValueValidator, ValidationError
 from datetime import datetime
 from django.utils import timezone
@@ -16,7 +16,6 @@ class Tag(models.Model):
 class Article(models.Model):
     posted_by = models.ForeignKey(Mentor, on_delete=models.CASCADE)
     title = models.CharField(max_length=50, unique=True)
-    # post = models.TextField()
     post = HTMLField()
     posted_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
@@ -59,6 +58,10 @@ class Task(models.Model):
 
     def __str__(self):
         return self.title
+
+    @property
+    def abc(self):
+        return self.weight
 
 
 class MaxScoreTaskValidator:
@@ -119,3 +122,7 @@ class Submission(models.Model):
     def save(self, *args, **kwargs):
         self.submission_status = "Submitted"
         super().save(*args, *kwargs)
+
+    @property
+    def csc(self):
+        return self.score

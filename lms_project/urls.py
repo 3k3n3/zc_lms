@@ -19,7 +19,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("accounts/", include("django.contrib.auth.urls")),
+    path("accounts/", include("django.contrib.auth.urls")),  # Django auth
     path("chaining/", include("smart_selects.urls")),  # Smart Selects
     path("tinymce/", include("tinymce.urls")),  # tinyMCE
     path("", include("accounts.urls")),

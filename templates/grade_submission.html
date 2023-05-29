@@ -1,21 +1,34 @@
 {% extends '_base.html' %}
-{% load crispy_forms_tags %}
 
 {% block content %}
-
-{{task.title}}
+{% load crispy_forms_tags %}
+{{submission}}
 <br>
-{{task.task}}
-<hr>
+{{submission.submission}}
+<br>
+{{submission.submitted_for}}
+
+
 
 <form action="" method="post">
     {% csrf_token %}
-    {{ form.media }}
-    {{form | crispy}}
+    {{form.media}}
+    <div class="row">
+        <div class="col-4" style="padding-right: 0%;">
+            {{form.score | as_crispy_field}}
+        </div>
+        <div class="col-1 p-0" style="margin-top: 32px;">
+            <span class="input-group-text" id=""
+                style="border-top-left-radius: 0px;  border-bottom-left-radius: 0px">{{submission.submitted_for.weight}}</span>
+        </div>
+    </div>
+    <div>
+        {{form.feedback | as_crispy_field}}
+    </div>
 
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirm_submission">
-        Submit
+        Grade
     </button>
 
     <!-- Modal -->
@@ -24,15 +37,15 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title fs-5" id="">{{ task.title }}</h5>
+                    <h5 class="modal-title fs-5" id="">{{ submission }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Please confirm your submission as you will not be able to change or re-submit this task once submitted.
+                    Confirm Submission
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <input class="btn btn-danger" type="submit" value="Submit">
+                    <button type="submit" class="btn btn-danger">Submit</button>
                 </div>
             </div>
         </div>

@@ -6,7 +6,6 @@ from .models import Student, Mentor
 
 CustomUser = get_user_model()
 
-# admin.site.register(UserChoices)
 admin.site.register(CustomUser)
 admin.site.register(Student)
 admin.site.register(Mentor)
