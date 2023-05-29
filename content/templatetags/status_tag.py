@@ -1,5 +1,5 @@
 from django import template
-from ..models import Task, Student, Submission
+from ..models import Student, Submission
 
 register = template.Library()
 
@@ -7,21 +7,30 @@ register = template.Library()
 @register.filter
 def user(value):
     """Get logged in user from template, student instance only."""
-    global user
+
+    """The submissions are filtered based on the logged in student
+     in user(value) and compared by submissions vs task title in status(value) and score(value)"""
+    global submission
     user = value
-    return user
+    submission = Submission.objects.filter(
+        submitted_by=Student.objects.get(username=user)
+    )
+    return submission
 
 
 @register.filter
 def status(value):
-    """Get Task instance and compare with instances in Submission."""
-
-    """The submissions are filtered based on the logged in student
-     in user(value) and compared by submissions vs task title in status(value)"""
-    submission = Submission.objects.filter(
-        submitted_by=Student.objects.get(username=user)
-    )
+    """Submission Status."""
     for s in submission:
         if value == s.submitted_for:
-            return "Submitted"
+            return s.submission_status
     return "Not Submitted"
+
+
+@register.filter
+def score(value):
+    """Submission Score."""
+    for s in submission:
+        if value == s.submitted_for:
+            return s.score
+    return "-"
