@@ -1,24 +1,75 @@
 {% extends '_base.html' %}
+{% load static %}
 
 {% block content %}
-<h1>Dashboard</h1>
-{% if user.is_authenticated %}
-Welcome: {{user.username}}
-{% else %}
-Sorry nothing for you
-{% endif %}
-<br>
-<hr>
+<div class="hero p-4 pt-5 mt-4">
+    <div class="container">
+        <p class="fs-1">
+            Welcome back, {{user.first_name | title }}!
+        </p>
+        <p class="mb-4">
+            You've got this! Keep it up and keep learning!
+        </p>
+        <table>
+            <tr>
+                <td>
+                    Your Student ID:
+                </td>
+                <td>
+                    <span class="herox btn btn-light p-1 m-1"> LMS{{user.phone}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Your Track:
+                </td>
+                <td>
+                    <span class="herox btn btn-light p-1 m-1">{{user.track}}</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
 
-{% for article in article %}
-{{article.title}}
-<br>
-Posted by: {{article.posted_by}} on {{article.posted_on}}
-<br><br>
-{% endfor %}
+<div class="container p-0 mt-3 mb-3 card_g">
+    <div class="card card-body text-center cardx m-2 p-1">
+        <i style="font-size:24px" class="fa p-3 text-info ">&#xf201;</i>
+        <p class="text-muted m-0">Total Points</p>
+        <p class="p-0">{{total_score}}/{{total_weight}}
+            <span>{{points|floatformat}}%</span>
+        </p>
+    </div>
 
-{% block task %}
-{% include "_tasks.html" %}
-{% endblock task %}
+    <div class="card card-body text-center cardx m-2 p-1">
+        <i style="font-size:24px" class="fa p-3 text-success">&#xf012;</i>
+        <p class="card-text m-0 text-muted">Stage</p>
+        <p class="card-title">0/10</p>
+    </div>
 
+    <div class="card card-body text-center cardx m-2 p-1">
+        <i style="font-size:24px" class="fa p-3 text-warning">&#xf091;</i>
+        <p class="card-text m-0 text-muted">Medal</p>
+        <p class="card-title">None</p>
+    </div>
+
+    <div class="card card-body text-center cardx m-2 p-1">
+        <i style="font-size:24px" class="fa p-3 text-primary">&#xf0ca;</i>
+        <p class="card-text m-0 text-muted">Completed</p>
+        <p class="card-title">{{submission.count}}/{{task.count}}</p>
+    </div>
+</div>
+
+<div class="container p-0 mb-3 post_task">
+    <div class="container postx mb-3">
+        {% block post %}
+        {% include "_articles.html" %}
+        {% endblock post %}
+    </div>
+
+    <div class="container taskx">
+        {% block task %}
+        {% include "_tasks.html" %}
+        {% endblock task %}
+    </div>
+</div>
 {% endblock content %}

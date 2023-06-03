@@ -85,6 +85,7 @@ def dashboard(request):
     context = {
         "article": article,
         "task": task,
+        "submission": submission,
         "total_score": total_score,
         "total_weight": total_weight,
         "points": total_score / total_weight * 100,

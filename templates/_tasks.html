@@ -1,48 +1,14 @@
 {% load status_tag %}
 {% block task %}
-
 <span class="visually-hidden">{{user | user}}</span>
-<div class="card-group">
-<div class="card text-center mb-3" style="width: 5rem;">
-    <div class="card-body">
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <h5 class="card-title">{{total_score}}/{{total_weight}} 
-            <small>{{points|floatformat}}%</small>
-        </h5>
-    </div>
-  </div>
-  
-  <div class="card text-center mb-3" style="width: 5rem;">
-    <div class="card-body">
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <h5 class="card-title">Special title treatment</h5>
-    </div>
-  </div>
 
-  <div class="card text-center mb-3" style="width: 5rem;">
-    <div class="card-body">
-      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-      <h5 class="card-title">Special title treatment</h5>
-    </div>
-  </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-{% comment %} <div class="container"> {% endcomment %}
-    <table class="table table-hover">
+    <strong>Latest Tasks</strong>
+    <table class="table table-hover m-0 table-sm">
         <thead>
             <tr>
                 <th scope="col"> COURSE </th>
                 <th scope="col"> TASK TITLE </th>
-                <th scope="col"> TASK POINTS </th>
+                <th scope="col"> POINT </th>
                 <th scope="col"> WEIGHT </th>
                 <th scope="col"> DEADLINE </th>
                 <th scope="col"> SUBMISSION STATUS </th>
@@ -64,7 +30,7 @@
                 <td> {{task.weight}}.00 </td>
                 <td>
                     {% if current_time > task.deadline|date:"DATETIME_FORMAT" %}
-                    Submission Closed 
+                    Submission Closed
                     {% comment %} <small>{{task.deadline|timesince}} ago.</small> {% endcomment %}
                     {% else %}
                     {{task.deadline | timeuntil}}.
@@ -72,10 +38,10 @@
                 </td>
                 <td>{{task | status}}</td>
                 <td>
-                    {% if current_time < task.deadline|date:"DATETIME_FORMAT" and task|status == "Not Submitted" %}
-                        <a href="{% url 'task' task.id %}">View</a>
-                    {% else %}
-                    {% endif %}
+                    {% if current_time < task.deadline|date:"DATETIME_FORMAT" and task|status == "Not Submitted" %} <a
+                        href="{% url 'task' task.id %}">View</a>
+                        {% else %}
+                        {% endif %}
                 </td>
             </tr>
         </tbody>

@@ -14,12 +14,18 @@ class Tag(models.Model):
 
 
 class Article(models.Model):
+    CATEGORY = (
+        ("", "Categories"),
+        ("Announcement", "Announcement"),
+        ("Class", "Class"),
+    )
     posted_by = models.ForeignKey(Mentor, on_delete=models.CASCADE)
     title = models.CharField(max_length=50, unique=True)
     post = HTMLField()
     posted_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     tag = models.ManyToManyField(Tag)
+    category = models.CharField(max_length=50, choices=CATEGORY)
 
     def __str__(self):
         return self.title
@@ -58,10 +64,6 @@ class Task(models.Model):
 
     def __str__(self):
         return self.title
-
-    @property
-    def abc(self):
-        return self.weight
 
 
 class MaxScoreTaskValidator:
@@ -122,7 +124,3 @@ class Submission(models.Model):
     def save(self, *args, **kwargs):
         self.submission_status = "Submitted"
         super().save(*args, *kwargs)
-
-    @property
-    def csc(self):
-        return self.score

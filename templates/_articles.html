@@ -1,0 +1,28 @@
+
+<strong>Recent Posts</strong>
+<table class="table table-hover m-0 table-sm">
+    <thead>
+        <th>
+            TITLE
+        </th>
+        <th>
+            CATEGORY
+        </th>
+    </thead>
+    {% for article in article %}
+    <tbody>  
+        <tr>
+            <td>
+          {{article.title}} <br>
+            By {{article.posted_by}}, {{posted_on|timesince}}
+            </td>
+            <td>
+                {{article.category}}
+            </td>
+        </tr>
+    </tbody>
+    
+    {% empty %}
+    No posts yet!
+    {% endfor %}
+</table>
