@@ -84,13 +84,19 @@ def dashboard(request):
     total_score = sum([s.score for s in submission])
     total_weight = sum([t.weight for t in task])
 
+    # Avoid ZeroDivivsionError for empty db or no tasks
+    if total_weight == 0:
+        points = 0
+    else:
+        points = total_score / total_weight * 100
+
     context = {
         "article": article,
         "task": task,
         "submission": submission,
         "total_score": total_score,
         "total_weight": total_weight,
-        "points": total_score / total_weight * 100,
+        "points": points,
     }
     return render(request, "dashboard.html", context)
 
