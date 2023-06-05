@@ -1,0 +1,14 @@
+{% extends '_base.html' %}
+
+{% block content %}
+<br><br><br>
+<div class="container">
+{% for mentor in mentors %}
+{{mentor.username}} <br>
+{{mentor.username.first_name}} <br>
+<img width="20%" src="{{mentor.username.pictures.url}}" alt="">
+<br>
+<hr>
+{% endfor %}
+</div>
+{% endblock content %}

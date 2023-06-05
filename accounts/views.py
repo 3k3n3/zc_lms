@@ -6,24 +6,6 @@ from .models import CustomUser, Student, Mentor
 from .forms import StudentCreationForm, MentorCreationForm
 
 
-def hello(request):
-    # ff = [x.email for x in CustomUser.objects.all()]
-    # print(ff)
-    # hold = [(x.email, x.phone) for x in Student.objects.all()]
-    # print(hold)
-    for user in CustomUser.objects.all():
-        print(user, user.email)
-    for student in Student.objects.all():
-        print(student.uid)
-    print(("hre"))
-    return HttpResponse("Hello, World!")
-
-
-def profile(request):
-    """Profile."""
-    return HttpResponse("Hello, Profile!")
-
-
 def student_signup(request):
     """Student Signup."""
     form = StudentCreationForm()

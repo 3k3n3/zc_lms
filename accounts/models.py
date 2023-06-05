@@ -41,6 +41,8 @@ class CustomUser(AbstractUser):
         chained_field="country",
         chained_model_field="country",
     )
+    pictures = models.ImageField(upload_to="avatars/")
+    # picture = models.ImageField(upload_to=None, height_field=None, width_field=None, max_length=None)
 
 
 class Student(models.Model):

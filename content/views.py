@@ -6,6 +6,8 @@ from accounts.models import Mentor, Student
 from .models import Article, Task, Audience, Submission
 from .forms import TaskCreationForm, TaskSubmissionForm, TaskSubmissionGradingForm
 
+# from django.contrib.auth import login,logout
+
 # from django.contrib.auth.decorators import login_required
 
 
@@ -93,6 +95,25 @@ def dashboard(request):
     return render(request, "dashboard.html", context)
 
 
+def posts(request):
+    article = Article.objects.all()
+    context = {
+        "article": article,
+    }
+    return render(request, "articles.html", context)
+
+
+def tasks(request):
+    if not Student.objects.filter(username__username=request.user).exists():
+        return redirect("ment")
+    track = request.user.track
+    task = Task.objects.filter(Q(audience=track) | Q(audience="General"))
+    context = {
+        "task": task,
+    }
+    return render(request, "tasks.html", context)
+
+
 def mentors_dashboard(request):
     """Dashboard for mentors."""
     if not Mentor.objects.filter(username=request.user).exists():
@@ -105,6 +126,15 @@ def mentors_dashboard(request):
         "submissions": submissions,
     }
     return render(request, "mentors_dashboard.html", context)
+
+
+def meet_mentors(request):
+    """Meet the Mentors."""
+    mentors = Mentor.objects.all()
+    context = {
+        "mentors": mentors,
+    }
+    return render(request, "meet_mentors.html", context)
 
 
 def grade_submission(request, id):
@@ -126,7 +156,3 @@ def grade_submission(request, id):
         "form": form,
     }
     return render(request, "grade_submission.html", context)
-
-
-def logger(request):
-    return request.user

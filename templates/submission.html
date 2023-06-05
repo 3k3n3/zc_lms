@@ -3,10 +3,15 @@
 
 {% block content %}
 
-{{task.title}}
-<br>
-{{task.task}}
-<hr>
+<div class="container container_x" style="margin-top: 100px">
+<div>
+    <div class="fs-2">
+        {{task.title}}
+    </div>
+    <div>
+        {{task.task}}
+    </div>
+</div>
 
 <form action="" method="post">
     {% csrf_token %}
@@ -38,4 +43,6 @@
         </div>
     </div>
 </form>
+</div>
+
 {% endblock content %}

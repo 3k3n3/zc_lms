@@ -86,7 +86,9 @@ class Submission(models.Model):
     )
     submitted_by = models.ForeignKey(Student, on_delete=models.CASCADE)
     submission = HTMLField()
-    submitted_for = models.ForeignKey(Task, on_delete=models.CASCADE)
+    submitted_for = models.ForeignKey(
+        Task, related_name="submit", on_delete=models.CASCADE
+    )
     submission_date = models.DateTimeField(auto_now_add=True)
     submission_status = models.CharField(max_length=50, choices=STATUS)
     audience = models.CharField(max_length=100, choices=Audience.AUDIENCE)
