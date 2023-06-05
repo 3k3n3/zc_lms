@@ -29,8 +29,10 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["127.0.0.1", ".vercel.app"]
-
+ALLOWED_HOSTS = ["127.0.0.1", ".vercel.app", "beb0-102-89-47-74.ngrok-free.app"]
+CSRF_TRUSTED_ORIGINS = [
+    "https://beb0-102-89-47-74.ngrok-free.app",
+]
 
 # Application definition
 
@@ -91,8 +93,16 @@ WSGI_APPLICATION = "lms_project.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "URL": os.environ.get("URL"),
+        "NAME": os.environ.get("NAME"),
+        "USER": os.environ.get("USER"),
+        "PASSWORD": os.environ.get("PASSWORD"),
+        "HOST": os.environ.get("HOST"),
+        "PORT": os.environ.get("PORT"),
+        # local debsqlite3
+        # "ENGINE": "django.db.backends.sqlite3",
+        # "NAME": BASE_DIR / "db.sqlite3",
     }
 }
 
@@ -139,11 +149,11 @@ MEDIA_URL = "/media/"
 MEIDA_ROOT = BASE_DIR / "media"
 
 # Whitenoise
-STORAGES = {
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    },
-}
+# STORAGES = {
+#     "staticfiles": {
+#         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+#     },
+# }
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
