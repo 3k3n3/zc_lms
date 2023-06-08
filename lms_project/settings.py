@@ -164,6 +164,9 @@ AUTH_USER_MODEL = "accounts.CustomUSer"
 LOGIN_REDIRECT_URL = "dashboard"
 LOGOUT_REDIRECT_URL = "login"
 
+# Django-cities-light
+CITIES_LIGHT_ENABLE_CITY = False
+
 # Smart selects/chained selects
 USE_DJANGO_JQUERY = True
 
