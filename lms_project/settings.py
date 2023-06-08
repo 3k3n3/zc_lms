@@ -27,12 +27,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ["127.0.0.1", ".vercel.app", "beb0-102-89-47-74.ngrok-free.app"]
-CSRF_TRUSTED_ORIGINS = [
-    "https://beb0-102-89-47-74.ngrok-free.app",
-]
+ALLOWED_HOSTS = ["127.0.0.1", ".vercel.app"]
+#CSRF_TRUSTED_ORIGINS = [
+#    "",
+#]
 
 # Application definition
 
@@ -100,7 +100,7 @@ DATABASES = {
         "PASSWORD": os.environ.get("PASSWORD"),
         "HOST": os.environ.get("HOST"),
         "PORT": os.environ.get("PORT"),
-        # local debsqlite3
+        # local dbsqlite3
         # "ENGINE": "django.db.backends.sqlite3",
         # "NAME": BASE_DIR / "db.sqlite3",
     }
@@ -146,14 +146,14 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
 MEDIA_URL = "/media/"
-MEIDA_ROOT = BASE_DIR / "media"
+MEDIA_ROOT = BASE_DIR / "media"
 
 # Whitenoise
-# STORAGES = {
-#     "staticfiles": {
-#         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-#     },
-# }
+#STORAGES = {
+#    "staticfiles": {
+#        "BACKEND": #"whitenoise.storage.CompressedManifestStaticFi#lesStorage",
+#    },
+#}
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

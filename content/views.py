@@ -8,7 +8,7 @@ from .forms import TaskCreationForm, TaskSubmissionForm, TaskSubmissionGradingFo
 
 # from django.contrib.auth import login,logout
 
-# from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required
 
 
 def create_task(request):
@@ -72,7 +72,7 @@ def submit_task(request, id):
     }
     return render(request, "submission.html", context)
 
-
+@login_required
 def dashboard(request):
     """User Dashboard for posts and tasks."""
     if not Student.objects.filter(username__username=request.user).exists():
