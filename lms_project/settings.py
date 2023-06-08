@@ -91,16 +91,16 @@ WSGI_APPLICATION = "lms_project.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "URL": os.environ.get("URL"),
-        "NAME": os.environ.get("NAME"),
-        "USER": os.environ.get("USER"),
-        "PASSWORD": os.environ.get("PASSWORD"),
-        "HOST": os.environ.get("HOST"),
-        "PORT": os.environ.get("PORT"),
+        # "ENGINE": "django.db.backends.postgresql",
+        # "URL": os.environ.get("URL"),
+        # "NAME": os.environ.get("NAME"),
+        # "USER": os.environ.get("USER"),
+        # "PASSWORD": os.environ.get("PASSWORD"),
+        # "HOST": os.environ.get("HOST"),
+        # "PORT": os.environ.get("PORT"),
         # local dbsqlite3
-        # "ENGINE": "django.db.backends.sqlite3",
-        # "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
 
