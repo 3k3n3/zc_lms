@@ -2,13 +2,26 @@
 
 {% block content %}
 <br><br><br>
-<div class="container">
-{% for mentor in mentors %}
-{{mentor.username}} <br>
-{{mentor.username.first_name}} <br>
-<img width="20%" src="{{mentor.username.pictures.url}}" alt="">
-<br>
-<hr>
-{% endfor %}
+<div class="container mentors">
+    {% for mentor in mentors %}
+    <div class="card mentor_img">
+        <img class="card-img" src="{{mentor.username.pictures.url}}" alt="">
+        <div class="card-img-overlay">
+            <div class="mentor_img_items bg-dark opacity-50">
+                <div class="d-flex mentor_links">
+                    <p>{{mentor.username.first_name}} {{mentor.username.last_name}}</p>
+                    <p>
+                        <a href="#"><i style="font-size:16px" class="fa">&#xf08c;</i></a>
+                        <a href="#"><i style="font-size:16px" class="fa">&#xf099;</i></a>
+                        <a href="#"><i style="font-size:16px" class="fa">&#xf16d;</i></a>
+                    </p>
+                </div>
+                <button> {{mentor.username.track}} </button>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <hr>
+    {% endfor %}
 </div>
 {% endblock content %}

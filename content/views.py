@@ -72,11 +72,12 @@ def submit_task(request, id):
     }
     return render(request, "submission.html", context)
 
+
 @login_required
 def dashboard(request):
     """User Dashboard for posts and tasks."""
     if not Student.objects.filter(username__username=request.user).exists():
-        return redirect("ment")
+        return redirect("m_dashboard")
     track = request.user.track
     article = Article.objects.all()
     task = Task.objects.filter(Q(audience=track) | Q(audience="General"))
@@ -102,6 +103,7 @@ def dashboard(request):
 
 
 def posts(request):
+    """Posts."""
     article = Article.objects.all()
     context = {
         "article": article,
@@ -110,8 +112,9 @@ def posts(request):
 
 
 def tasks(request):
+    """Tasks."""
     if not Student.objects.filter(username__username=request.user).exists():
-        return redirect("ment")
+        return redirect("m_dashboard")
     track = request.user.track
     task = Task.objects.filter(Q(audience=track) | Q(audience="General"))
     context = {
@@ -156,7 +159,7 @@ def grade_submission(request, id):
             mentor = form.save(commit=False)
             mentor.graded_by = Mentor.objects.get(username=request.user)
             mentor.save()
-            return redirect("ment")
+            return redirect("m_dashboard")
     context = {
         "submission": submission,
         "form": form,

@@ -5,7 +5,6 @@ from phonenumber_field.modelfields import PhoneNumberField
 from cities_light.models import Country, Region
 from smart_selects.db_fields import ChainedForeignKey
 import uuid
-from cloudinary.models import CloudinaryField
 
 
 class CustomUser(AbstractUser):
@@ -42,8 +41,7 @@ class CustomUser(AbstractUser):
         chained_field="country",
         chained_model_field="country",
     )
-    pictures = CloudinaryField("image")
-    # pictures = models.ImageField(upload_to="avatars/")
+    pictures = models.ImageField(upload_to="avatars/", null=True, blank=True)
 
 
 class Student(models.Model):

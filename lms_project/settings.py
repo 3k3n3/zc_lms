@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     "crispy_forms",
     "crispy_bootstrap5",
     "tinymce",
+    "cloudinary_storage",
     "cloudinary",
 ]
 
@@ -78,7 +79,6 @@ TEMPLATES = [
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
-                "django.template.context_processors.media",
                 "django.template.context_processors.debug",
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
@@ -152,6 +152,14 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
+# cloudinary
+DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+CLOUDINARY_STORAGE = {
+    "CLOUD_NAME": os.environ.get("cloud_name"),
+    "API_KEY": os.environ.get("api_key"),
+    "API_SECRET": os.environ.get("api_secret"),
+}
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -189,10 +197,3 @@ TINYMCE_DEFAULT_CONFIG = {
     "menubar": False,
     "statusbar": False,
 }
-
-# cloudinary
-cloudinary.config(
-    cloud_name=os.environ.get("cloud_name"),
-    api_key=os.environ.get("api_key"),
-    api_secret=os.environ.get("api_secret"),
-)
