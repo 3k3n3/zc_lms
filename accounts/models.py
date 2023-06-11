@@ -24,8 +24,8 @@ class CustomUser(AbstractUser):
     first_name = models.CharField(max_length=15, null=True, blank=True)
     middle_name = models.CharField(max_length=15, null=True, blank=True)
     last_name = models.CharField(max_length=15, null=True, blank=True)
-    email = models.EmailField(max_length=30, unique=True, null=True, blank=True)
-    phone = PhoneNumberField(unique=True, null=True, blank=True)
+    email = models.EmailField(max_length=30, unique=True)
+    phone = PhoneNumberField(unique=True)
     gender = models.CharField(max_length=100, choices=GENDER)
     track = models.CharField(max_length=100, choices=TRACK)
     age = models.PositiveIntegerField(
@@ -41,7 +41,9 @@ class CustomUser(AbstractUser):
         chained_field="country",
         chained_model_field="country",
     )
-    pictures = models.ImageField(upload_to="avatars/", null=True, blank=True)
+    pictures = models.ImageField(
+        upload_to="avatars/", null=True, blank=True, default="avatars/avatar_ajfzht.jpg"
+    )
 
 
 class Student(models.Model):

@@ -5,12 +5,12 @@ from django.db.models import Q
 from accounts.models import Mentor, Student
 from .models import Article, Task, Audience, Submission
 from .forms import TaskCreationForm, TaskSubmissionForm, TaskSubmissionGradingForm
+from django.contrib.auth.decorators import login_required
 
 # from django.contrib.auth import login,logout
 
-from django.contrib.auth.decorators import login_required
 
-
+@login_required
 def create_task(request):
     """Create a Task."""
 
@@ -37,6 +37,7 @@ def create_task(request):
     return render(request, "create_task.html", context)
 
 
+@login_required
 def submit_task(request, id):
     """Task Submission."""
 
@@ -123,6 +124,7 @@ def tasks(request):
     return render(request, "tasks.html", context)
 
 
+@login_required
 def mentors_dashboard(request):
     """Dashboard for mentors."""
     if not Mentor.objects.filter(username=request.user).exists():
@@ -137,6 +139,7 @@ def mentors_dashboard(request):
     return render(request, "mentors_dashboard.html", context)
 
 
+@login_required
 def meet_mentors(request):
     """Meet the Mentors."""
     mentors = Mentor.objects.all()
@@ -146,6 +149,7 @@ def meet_mentors(request):
     return render(request, "meet_mentors.html", context)
 
 
+@login_required
 def grade_submission(request, id):
     """Grade Submissions."""
     if not Mentor.objects.filter(username=request.user).exists():

@@ -4,21 +4,20 @@
         <span style="font-size:32px; cursor:pointer" onclick="openNav()">&#9776;</span>
         {% endif %}
         <div style="margin: auto 0 auto 3px;">
-            <a class="navbar-brand" href="#">I4G x ZURI</a>
+            <a class="navbar-brand" href="{% url 'dashboard' %} ">I4G x ZURI</a>
         </div>
     </div>
     {% if user.is_authenticated %}
     <div class="d-flex" style="margin: auto 0">
         <div class="nav_icons">
             <i id="theme_icon" style="font-size:20px" class="fa">&#xf204;</i>
-            <!-- <i style="font-size:20px" class="fa">&#xf205;</i> -->
         </div>
         <div class="nav_icons">
             <i style="font-size:20px" class="fa">&#xf0a2;</i>
             <!-- <i style="font-size:20px" class="fa">&#xf0f3;</i> -->
         </div>
         <div class="nav_icons">
-            <i style="font-size:36px" class="fa">&#xf2bd;</i>
+            <img src="{{user.pictures.url}}" alt="display picture">
         </div>
     </div>
     {% else %}

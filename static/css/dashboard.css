@@ -19,12 +19,24 @@ nav {
 }
 
 nav .nav_icons {
-    margin: auto 20px auto 0;
+    margin: auto 10px auto 0;
     cursor: pointer;
+}
+
+nav .nav_icons img {
+    width: 35px;
+    border-radius: 20px;
 }
 
 body {
     background-color: var(--primary-color);
+}
+
+.reg_container {
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
 }
 
 .hero {
@@ -216,6 +228,11 @@ body {
 }
 
 @media screen and (max-width: 725px) {
+
+    .reg_container {
+        width: 95%;
+    }
+
     .card_g {
         display: grid;
         grid-template-areas:

@@ -1,13 +1,13 @@
 from django.shortcuts import render, redirect
-from django.db import IntegrityError
-from django.core.exceptions import ValidationError
-from django.http import HttpResponse
-from .models import CustomUser, Student, Mentor
+from .models import Student, Mentor
 from .forms import StudentCreationForm, MentorCreationForm
 
 
 def student_signup(request):
     """Student Signup."""
+    if request.user.is_authenticated:
+        return redirect("dashboard")
+
     form = StudentCreationForm()
     if request.method == "POST":
         form = StudentCreationForm(request.POST)
@@ -18,10 +18,7 @@ def student_signup(request):
                 experience_level=form.cleaned_data["experience_level"],
                 employment_status=form.cleaned_data["employment_status"],
             )
-            print("new student created")
-            return redirect("profile")
-        else:
-            print("something went wrong")
+            return redirect("dashboard")
     context = {
         "form": form,
     }
@@ -30,6 +27,9 @@ def student_signup(request):
 
 def mentor_signup(request):
     """Mentor Signup."""
+    if request.user.is_authenticated:
+        return redirect("m_dashboard")
+
     form = MentorCreationForm()
     if request.method == "POST":
         form = MentorCreationForm(request.POST)
@@ -39,10 +39,7 @@ def mentor_signup(request):
                 username=mentor,
                 experience=form.cleaned_data["experience"],
             )
-            print("new mentor created")
-            return redirect("profile")
-        else:
-            print("something went wrong")
+            return redirect("m_dashboard")
     context = {
         "form": form,
     }
