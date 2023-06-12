@@ -130,11 +130,22 @@ def mentors_dashboard(request):
     if not Mentor.objects.filter(username=request.user).exists():
         return redirect("dashboard")
 
+    # dict comprehension to get count of students in each track
+    chart_data = {
+        track: Student.objects.filter(username__track=track).count()
+        for track in ["BackEnd", "FrontEnd", "Design", "Mobile"]
+    }
+    labels = list(chart_data.keys())
+    data = list(chart_data.values())
+
     submissions = Submission.objects.filter(
         Q(audience=request.user.track) | Q(audience="General")
     ).order_by("graded_by")
+
     context = {
         "submissions": submissions,
+        "labels": labels,
+        "data": data,
     }
     return render(request, "mentors_dashboard.html", context)
 

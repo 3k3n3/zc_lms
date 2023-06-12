@@ -3,8 +3,8 @@
 {% block tite %}Registration | Mentors{% endblock tite %}
 
 {% block content %}
-<section class="container mt-4 mb-4" style="font-size: small; width: 60%;">
-    <div class="shadow-sm rounded p-5">
+<section class="mb-5 reg_container">
+    <div class="shadow-sm rounded p-5 pt-3">
         <p class="h2" style="text-align: center;">
             Mentors' Sign-up
         </p>
@@ -13,8 +13,12 @@
             {% csrf_token %}
             {{ form.media.js }}
             {{ form | crispy }}
-            <a class="btn btn-link " href="{% url 'login' %}">Already Registered?</a>
-            <input type="submit" class="btn btn-danger" value="Submit" />
+            <div class="row justify-content-center">
+                <div class="col-10 d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button type="button" class="btn btn-link btn-sm"><a href="{% url 'login' %}">Already Registered?</a></button>
+                    <button type="submit" class="btn btn-sm btn-danger">Register</button>
+                </div>
+            </div>
         </form>
     </div>
 </section>

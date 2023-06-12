@@ -1,0 +1,63 @@
+<div class="chart_container">
+    <div class="chart">
+    <canvas id="myChart"></canvas>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    //Charts.js
+    const ctx = document.getElementById('myChart');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: {{ labels|safe}},
+            datasets: [{
+                label: "Registered Students",
+                data: {{ data|safe }},
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(255, 205, 86, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(201, 203, 207, 0.2)'
+                ],
+                barPercentage: .5,
+                categoryPercentage : 1,
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+
+<div class="chart2">
+    <canvas id="myChart2"></canvas>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    //Charts.js
+    const ctx_2= document.getElementById('myChart2');
+    new Chart(ctx_2, {
+        type: 'doughnut',
+        data: {
+            labels: {{ labels|safe}},
+            datasets: [{
+                label: "Registered Students",
+                data: {{ data|safe }},
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(255, 205, 86, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(201, 203, 207, 0.2)'
+                ],
+                borderWidth: 1,
+                hoverOffset: 4,
+            }]
+        },
+    });
+</script>
+</div>
