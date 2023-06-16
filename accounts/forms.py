@@ -37,6 +37,8 @@ class StudentCreationForm(UserCreationForm):
             "country",
             "state",
         ]
+        # Autofocus is set on username by default, not anymore.
+        widgets = {"first_name": forms.TextInput(attrs={"autofocus": True})}
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

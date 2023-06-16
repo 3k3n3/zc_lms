@@ -1,6 +1,5 @@
-
-<strong>Recent Posts</strong>
-<table class="table table-hover m-0 table-sm">
+<table class="table table-hover m-0 table-sm caption-top">
+    <caption><strong>Recent Posts</strong></caption>
     <thead>
         <th>
             TITLE
@@ -20,9 +19,12 @@
                 {{article.category}}
             </td>
         </tr>
+        {% empty %}
+        <tr>
+            <td colspan="2" class="empty">
+                No posts yet!
+            </td>
+        </tr>
     </tbody>
-    
-    {% empty %}
-    No posts yet!
     {% endfor %}
 </table>
