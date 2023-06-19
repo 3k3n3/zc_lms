@@ -31,7 +31,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["127.0.0.1", ".vercel.app"]
 
@@ -57,6 +57,8 @@ INSTALLED_APPS = [
     "tinymce",
     "cloudinary_storage",
     "cloudinary",
+    # api
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
@@ -197,4 +199,12 @@ TINYMCE_DEFAULT_CONFIG = {
             """,
     "menubar": False,
     "statusbar": False,
+}
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
+    ]
 }

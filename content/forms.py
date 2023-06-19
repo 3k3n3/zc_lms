@@ -8,7 +8,7 @@ class TaskCreationForm(forms.ModelForm):
     class Meta:
         model = Task
         fields = ["title", "task", "weight", "deadline", "tag", "audience"]
-        widgets = {"deadline": DateTimePickerInput()}
+        widgets = {"deadline": DateTimePickerInput(), "task": TinyMCE()}
 
 
 class TaskSubmissionForm(forms.ModelForm):

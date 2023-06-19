@@ -41,6 +41,12 @@
                 <td><a href="{% url 'subs' submission.id %}">View</a></td>
             </tr>
         </tbody>
+        {% empty %}
+            <tr>
+                <td colspan="5" class="empty">
+                    No submissions yet!
+                </td>
+            </tr>
         {% endfor %}
     </table>
 </div>

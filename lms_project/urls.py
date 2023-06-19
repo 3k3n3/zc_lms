@@ -22,8 +22,10 @@ from django.conf.urls.static import static
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("accounts/", include("django.contrib.auth.urls")),  # Django auth
+    path("api-auth/", include("rest_framework.urls")),  # rest api auth
     path("chaining/", include("smart_selects.urls")),  # Smart Selects
     path("tinymce/", include("tinymce.urls")),  # tinyMCE
     path("", include("accounts.urls")),
     path("", include("content.urls")),
+    path("api/", include("api.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

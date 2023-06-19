@@ -78,6 +78,17 @@ class MentorCreationForm(UserCreationForm):
         self.fields["password2"].help_text = None
 
 
+class StudentChangeForm(UserChangeForm):
+    experience_level = forms.ChoiceField(choices=StudentCreationForm.EXPERIENCE_LEVEL)
+    employment_status = forms.ChoiceField(choices=StudentCreationForm.EMPLOYMENT_STATUS)
+    github = forms.URLField()
+    linkedin = forms.URLField()
+
+    class Meta:
+        model = get_user_model()
+        fields = "__all__"
+
+
 # class CustomUserChangeorm(UserChangeForm):
 #     class Meta:
 #         model = get_user_model()

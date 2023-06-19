@@ -79,6 +79,7 @@ def dashboard(request):
     """User Dashboard for posts and tasks."""
     if not Student.objects.filter(username__username=request.user).exists():
         return redirect("m_dashboard")
+    student_id = Student.objects.get(username__username=request.user).student_id
     track = request.user.track
     article = Article.objects.all()
     task = Task.objects.filter(Q(audience=track) | Q(audience="General"))
@@ -99,6 +100,7 @@ def dashboard(request):
         "total_score": total_score,
         "total_weight": total_weight,
         "points": points,
+        "student_id": student_id,
     }
     return render(request, "dashboard.html", context)
 
@@ -115,7 +117,7 @@ def posts(request):
 def tasks(request):
     """Tasks."""
     if not Student.objects.filter(username__username=request.user).exists():
-        return redirect("m_dashboard")
+        return redirect("create_task")
     track = request.user.track
     task = Task.objects.filter(Q(audience=track) | Q(audience="General"))
     context = {

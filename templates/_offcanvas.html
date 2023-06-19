@@ -13,7 +13,7 @@
         <i style="font-size:16px; margin: auto 7px auto 4px;" class="fa">&#xf02d;</i>
         Posts
       </a>
-      <a class="d-flex pb-3 pt-3 {% if request.path == 'user' %}active{% endif %}" href="">
+      <a class="d-flex pb-3 pt-3 {% if request.path == '/profile/' %}active{% endif %}" href="{% url 'profile' %}">
         <i style="font-size:16px; margin: auto 9px auto 4px;" class="fa">&#xf007;</i>
         User
       </a>

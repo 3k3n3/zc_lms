@@ -54,17 +54,19 @@ class Student(models.Model):
         ("Expert", "Expert"),
     )
     EMPLOYMENT_STATUS = (("Employed", "Employed"), ("Unemployed", "Unemployed"))
+    student_id = models.CharField(max_length=15, unique=True, null=True, blank=True)
     username = models.OneToOneField(
         CustomUser, null=True, blank=True, on_delete=models.CASCADE
     )
     uid = models.UUIDField(default=uuid.uuid4, unique=True, editable=False)
     experience_level = models.CharField(max_length=100, choices=EXPERIENCE_LEVEL)
     employment_status = models.CharField(max_length=100, choices=EMPLOYMENT_STATUS)
+    github = models.URLField(max_length=30, unique=True, null=True, blank=True)
+    linkedin = models.URLField(max_length=30, unique=True, null=True, blank=True)
 
     # education = models.CharField(max_length=100, choices=EDUCATION)
     # how_did_you_hear_about_us = models.CharField(max_length=100, choices=REFERRAL)
-    # github = models.URLField(max_length=30, unique=True, null=True, blank=True)
-    # linkedin = models.URLField(max_length=30, unique=True, null=True, blank=True)
+
     def __str__(self):
         return str(self.username)
 

@@ -2,13 +2,14 @@
 {% load crispy_forms_tags %}
 {% block tite %}Create Task{% endblock tite %}
 
-<h1>Create Task</h1>
 {% block content %}
-
-<form action="" method="post">
+<div class="container container_x" style="margin-top: 80px">
+<h1>Create Task</h1>
+<form class="mb-5" action="" method="post">
     {% csrf_token %}
     {{form.media}}
     {{form | crispy}}
-    <input type="submit" value="Create">
+    <input class="btn btn-danger" type="submit" value="Create">
 </form>
+</div>
 {% endblock content %}
