@@ -70,6 +70,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "accounts.middleware.RedirectLoggedInMiddleware",  # Redirect logged in users
 ]
 
 ROOT_URLCONF = "lms_project.urls"
@@ -107,7 +108,7 @@ DATABASES = {
         "PORT": os.environ.get("PORT"),
         # local dbsqlite3
         # "ENGINE": "django.db.backends.sqlite3",
-        # "NAME": BASE_DIR / "db.sqlite3",
+        # "NAME": BASE_DIR / "db.sqlites3",
     }
 }
 
@@ -200,6 +201,14 @@ TINYMCE_DEFAULT_CONFIG = {
     "menubar": False,
     "statusbar": False,
 }
+
+# Email config
+EMAIL_BACKEND = os.environ.get("EMAIL_BACKEND")
+EMAIL_HOST = os.environ.get("EMAIL_HOST")
+EMAIL_PORT = os.environ.get("EMAIL_PORT")
+EMAIL_USE_SSL = os.environ.get("EMAIL_USE_SSL")
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
