@@ -2,10 +2,16 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.utils import timezone
 from django.db.models import Q
-from accounts.models import Mentor, Student
+from accounts.models import Mentor, Student, CustomUser
 from .models import Article, Task, Audience, Submission
-from .forms import TaskCreationForm, TaskSubmissionForm, TaskSubmissionGradingForm
+from .forms import (
+    TaskCreationForm,
+    TaskSubmissionForm,
+    TaskSubmissionGradingForm,
+    ArticleCreationForm,
+)
 from django.contrib.auth.decorators import login_required
+from notifications.signals import notify
 
 # from django.contrib.auth import login,logout
 
@@ -105,8 +111,38 @@ def dashboard(request):
     return render(request, "dashboard.html", context)
 
 
+def create_post(request):
+    """Create a Post."""
+    """Only Mentors can create Posts."""
+
+    #
+    student = Student.objects.all().values_list("username__username", flat=True)
+    users = CustomUser.objects.filter(username__in=student)
+    #
+
+    if not Mentor.objects.filter(username=request.user).exists():
+        return redirect("dashboard")
+    form = ArticleCreationForm()
+    if request.method == "POST":
+        form = ArticleCreationForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.posted_by = Mentor.objects.get(username=request.user)
+            post.save()
+            form.save_m2m()
+            notify.send(sender=request.user, recipient=users, verb="New post Alert")
+            return redirect("dashboard")
+
+    context = {
+        "form": form,
+    }
+    return render(request, "create_post.html", context)
+
+
 def posts(request):
     """Posts."""
+    if not Student.objects.filter(username__username=request.user).exists():
+        return redirect("create_post")
     article = Article.objects.all()
     context = {
         "article": article,

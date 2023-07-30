@@ -1,18 +1,24 @@
 from rest_framework.serializers import ModelSerializer
 from rest_framework import serializers
 
-# from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model
 from accounts.models import CustomUser, Student, Mentor
+
+CustomUser = get_user_model()
 
 
 class CustomUserSerializer(ModelSerializer):
-    pictures = serializers.ImageField(
-        max_length=None, allow_empty_file=False, use_url=True
-    )
+    # pictures = serializers.ImageField(
+    #     max_length=None, allow_empty_file=False, use_url=True
+    # )
+
+    password = serializers.CharField(style={"input_type": "password"}, write_only=True)
+    password2 = serializers.CharField(style={"input_type": "password"}, write_only=True)
 
     class Meta:
         model = CustomUser
         fields = [
+            "username",
             "first_name",
             "middle_name",
             "last_name",
@@ -23,21 +29,34 @@ class CustomUserSerializer(ModelSerializer):
             "age",
             "country",
             "state",
-            "pictures",
+            # "pictures",
+            "password",
+            "password2",
         ]
 
+        def save(self):
+            password = self.validated_data["password"]
+            password2 = self.validated_data["password2"]
 
-class StudentSerializer(ModelSerializer):
+            if password != password2:
+                raise serializers.ValidationError(
+                    {"password": "Passwords don't match."}
+                )
+
+
+class StudentCreationSerializer(ModelSerializer):
     username = CustomUserSerializer()
 
     class Meta:
         model = Student
+        # fields = "__all__"
+
+        """
         fields = [
-            "student_id",
             "username",
-            "uid",
             "experience_level",
             "employment_status",
-            "github",
-            "linkedin",
         ]
+        """
+        # fields = "__all__"
+        exclude = ["github", "linkedin"]

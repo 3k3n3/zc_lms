@@ -4,13 +4,14 @@ from django.core.validators import MaxValueValidator, MinValueValidator, Validat
 from datetime import datetime
 from django.utils import timezone
 from tinymce.models import HTMLField
+from taggit.managers import TaggableManager
 
 
-class Tag(models.Model):
-    name = models.CharField(max_length=50, null=False)
+# class Tag(models.Model):
+#     name = models.CharField(max_length=50, null=False)
 
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name
 
 
 class Article(models.Model):
@@ -24,7 +25,8 @@ class Article(models.Model):
     post = HTMLField()
     posted_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
-    tag = models.ManyToManyField(Tag)
+    # tag = models.ManyToManyField(Tag)
+    tags = TaggableManager()
     category = models.CharField(max_length=50, choices=CATEGORY)
 
     def __str__(self):
@@ -57,7 +59,8 @@ class Task(models.Model):
     )
     posted_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
-    tag = models.ManyToManyField(Tag)
+    # tag = models.ManyToManyField(Tag)
+    # tag = TaggableManager()
     audience = models.CharField(
         max_length=100, choices=Audience.AUDIENCE, default="General"
     )
