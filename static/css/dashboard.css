@@ -41,6 +41,10 @@ body {
     margin-top: 100px;
 }
 
+.reg_container ::placeholder {
+    font-size: small;
+}
+
 .hero {
     color: var(--secondary-color);
     background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(0, 102, 128, 1) 55%, rgba(0, 179, 255, 1) 100%);

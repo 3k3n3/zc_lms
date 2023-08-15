@@ -4,6 +4,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from phonenumber_field.modelfields import PhoneNumberField
 from cities_light.models import Country, Region
 from smart_selects.db_fields import ChainedForeignKey
+from shortuuid.django_fields import ShortUUIDField
 import uuid
 
 
@@ -21,17 +22,15 @@ class CustomUser(AbstractUser):
         ("Male", "Male"),
         ("Prefer not to say", "Prefer not to say"),
     )
-    first_name = models.CharField(max_length=15, null=True, blank=True)
+    first_name = models.CharField(max_length=15)
     middle_name = models.CharField(max_length=15, null=True, blank=True)
-    last_name = models.CharField(max_length=15, null=True, blank=True)
+    last_name = models.CharField(max_length=15)
     email = models.EmailField(max_length=30, unique=True)
     phone = PhoneNumberField(unique=True)
     gender = models.CharField(max_length=100, choices=GENDER)
     track = models.CharField(max_length=100, choices=TRACK)
     age = models.PositiveIntegerField(
-        null=True,
-        blank=True,
-        validators=[MaxValueValidator(65), MinValueValidator(10)],
+        validators=[MaxValueValidator(65), MinValueValidator(10)]
     )
     country = models.ForeignKey(Country, null=True, on_delete=models.CASCADE)
     state = ChainedForeignKey(
@@ -54,7 +53,7 @@ class Student(models.Model):
         ("Expert", "Expert"),
     )
     EMPLOYMENT_STATUS = (("Employed", "Employed"), ("Unemployed", "Unemployed"))
-    student_id = models.CharField(max_length=15, unique=True, null=True, blank=True)
+    student_id = ShortUUIDField(length=8, max_length=16, prefix="LMS", unique=True)
     username = models.OneToOneField(
         CustomUser, null=True, blank=True, on_delete=models.CASCADE
     )

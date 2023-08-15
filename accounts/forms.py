@@ -38,7 +38,10 @@ class StudentCreationForm(UserCreationForm):
             "state",
         ]
         # Autofocus is set on username by default, not anymore.
-        widgets = {"first_name": forms.TextInput(attrs={"autofocus": True})}
+        widgets = {
+            "first_name": forms.TextInput(attrs={"autofocus": True}),
+            "phone": forms.TextInput(attrs={"placeholder": "eg. +2347012345678"}),
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -50,6 +53,9 @@ class StudentCreationForm(UserCreationForm):
 
 class MentorCreationForm(UserCreationForm):
     experience = forms.IntegerField(max_value=60, min_value=1)
+    phone = forms.CharField(
+        widget=forms.TextInput(attrs={"placeholder": "eg. +2347012345678"})
+    )
 
     class Meta:
         model = get_user_model()

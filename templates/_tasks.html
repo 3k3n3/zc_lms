@@ -21,7 +21,7 @@
                 <td>{{task.audience}}</td>
                 <td>
                     {{task.title}} <br>
-                    {{task.task | truncatewords:5}}
+                    <small>{{task.task | truncatewords:5| striptags}}</small>
                 </td>
                 <td>
                     {{task|score}}

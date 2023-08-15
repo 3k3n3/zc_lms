@@ -1,10 +1,7 @@
 from django.shortcuts import render, redirect
-from .models import Student, Mentor
+from .models import Student, Mentor, CustomUser
 from .forms import StudentCreationForm, MentorCreationForm
-import random
 from django.contrib.auth.decorators import login_required
-
-# from django.contrib.auth import get_user_model
 
 
 def student_signup(request):
@@ -15,11 +12,27 @@ def student_signup(request):
     form = StudentCreationForm()
     if request.method == "POST":
         form = StudentCreationForm(request.POST)
+
+        # Validate unique username
+        username = form.data["username"].lower()
+        if CustomUser.objects.filter(username=form.data["username"]).exists():
+            pass  # Allow django default error message
+        elif CustomUser.objects.filter(username=username).exists():
+            form.add_error("username", "A user with this username already exists.")
+
+        # Validate unique email
+        email = form.data["email"].lower()
+        if CustomUser.objects.filter(email=form.data["email"]).exists():
+            pass  # Allow django default error message
+        elif CustomUser.objects.filter(email=email).exists():
+            form.add_error("email", "A user with this email exists.")
+
         if form.is_valid():
-            student = form.save()
+            user = form.save(commit=False)
+            user.username = username.lower()
+            user.save()
             Student.objects.create(
-                username=student,
-                student_id="LMS" + str(random.choice(range(100000, 1000000))),
+                username=user,
                 experience_level=form.cleaned_data["experience_level"],
                 employment_status=form.cleaned_data["employment_status"],
             )
@@ -38,10 +51,27 @@ def mentor_signup(request):
     form = MentorCreationForm()
     if request.method == "POST":
         form = MentorCreationForm(request.POST)
+
+        # Validate unique username
+        username = form.data["username"].lower()
+        if CustomUser.objects.filter(username=form.data["username"]).exists():
+            pass  # Allow django default error message
+        elif CustomUser.objects.filter(username=username).exists():
+            form.add_error("username", "A user with this username already exists.")
+
+        # Validate unique email
+        email = form.data["email"].lower()
+        if CustomUser.objects.filter(email=form.data["email"]).exists():
+            pass  # Allow django default error message
+        elif CustomUser.objects.filter(email=email).exists():
+            form.add_error("email", "A user with this email exists.")
+
         if form.is_valid():
-            mentor = form.save()
+            user = form.save(commit=False)
+            user.username = username.lower()
+            user.save()
             Mentor.objects.create(
-                username=mentor,
+                username=user,
                 experience=form.cleaned_data["experience"],
             )
             return redirect("m_dashboard")

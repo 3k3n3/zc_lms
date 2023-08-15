@@ -31,9 +31,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["127.0.0.1", ".vercel.app"]
+
+# Debug Toolbar
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
 
 # Application definition
 
@@ -59,6 +64,8 @@ INSTALLED_APPS = [
     "cloudinary",
     "taggit",
     "notifications",
+    # local only
+    "debug_toolbar",
     # api
     "rest_framework",
 ]
@@ -66,6 +73,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",  # WhiteNoise
+    "debug_toolbar.middleware.DebugToolbarMiddleware",  # Debug Toolbar
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -224,4 +232,5 @@ REST_FRAMEWORK = {
     "PAGE_SIZE": 1,
 }
 
+# Django Taggit
 TAGGIT_CASE_INSENSITIVE = True
