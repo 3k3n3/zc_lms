@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+    "whitenoise.runserver_nostatic",
     "django.contrib.staticfiles",
     # My apps
     "accounts.apps.AccountsConfig",
@@ -72,9 +73,9 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",  # WhiteNoise
     "debug_toolbar.middleware.DebugToolbarMiddleware",  # Debug Toolbar
-    "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -168,6 +169,7 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # cloudinary
 DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
@@ -184,7 +186,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Django default auth
 AUTH_USER_MODEL = "accounts.CustomUSer"
-LOGIN_REDIRECT_URL = "dashboard"
+LOGIN_REDIRECT_URL = "dashboard"  # Redundant
 LOGOUT_REDIRECT_URL = "login"
 
 # Django-cities-light

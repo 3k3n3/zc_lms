@@ -65,12 +65,22 @@
         {% block post %}
         {% include "_articles.html" %}
         {% endblock post %}
+        <div style="text-align: end;">
+            <p>
+                <a href="{% url 'all_posts' %}">All Posts</a>
+            </p>
+        </div>
     </div>
 
     <div class="container taskx">
         {% block task %}
         {% include "_tasks.html" %}
         {% endblock task %}
+        <div style="text-align: end;">
+            <p>
+                <a href="{% url 'all_tasks' %}">All Tasks</a>
+            </p>
+        </div>
     </div>
 </div>
 {% endblock content %}

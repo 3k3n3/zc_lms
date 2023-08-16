@@ -19,16 +19,18 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 import notifications.urls
+from accounts.views import loginpage
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("accounts/login/", loginpage, name="login"),  # Override default login
     path("accounts/", include("django.contrib.auth.urls")),  # Django auth
     path("api-auth/", include("rest_framework.urls")),  # rest api auth
     path("chaining/", include("smart_selects.urls")),  # Smart Selects
     path("tinymce/", include("tinymce.urls")),  # tinyMCE
     path("", include("accounts.urls")),
     path("", include("content.urls")),
-    path("api/v1/", include("api.urls")),
+    # path("api/v1/", include("api.urls")),
     path(
         "'^inbox/noifications/", include(notifications.urls, namespace="notifications")
     ),

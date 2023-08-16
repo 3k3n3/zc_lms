@@ -1,7 +1,35 @@
 from django.shortcuts import render, redirect
 from .models import Student, Mentor, CustomUser
-from .forms import StudentCreationForm, MentorCreationForm
+from .forms import LoginForm, StudentCreationForm, MentorCreationForm
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+
+
+def loginpage(request):
+    """Login page."""
+    form = LoginForm()
+    if request.method == "POST":
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            # change entered username to lowercase since
+            # usernames are always saved in lowercase.
+            user = authenticate(
+                username=form.cleaned_data["username"].lower(),
+                password=form.cleaned_data["password"],
+            )
+            if user is not None:
+                login(request, user)
+                return redirect("dashboard")
+            else:
+                messages.add_message(
+                    request, messages.ERROR, "Invalid Username or Password"
+                )
+
+    context = {
+        "form": form,
+    }
+    return render(request, "registration/login.html", context)
 
 
 def student_signup(request):
@@ -29,7 +57,7 @@ def student_signup(request):
 
         if form.is_valid():
             user = form.save(commit=False)
-            user.username = username.lower()
+            user.username = username.lower()  # save usernames in lowercase
             user.save()
             Student.objects.create(
                 username=user,

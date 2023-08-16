@@ -4,6 +4,11 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from .models import Student, Mentor
 
 
+class LoginForm(forms.Form):
+    username = forms.CharField(max_length=50)
+    password = forms.CharField(max_length=50, widget=forms.PasswordInput)
+
+
 class StudentCreationForm(UserCreationForm):
     EXPERIENCE_LEVEL = (
         ("", "Select experience level"),

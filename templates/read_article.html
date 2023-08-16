@@ -1,0 +1,11 @@
+{% extends '_base.html' %}
+{% block tite %}{{article.title}}{% endblock tite %}
+
+{% block content %}
+<div class="mt-5 p-4">
+    <h2>{{article.title}}</h2>
+    <p>
+        {{article.post | safe}}
+    </p>
+</div>
+{% endblock content %}

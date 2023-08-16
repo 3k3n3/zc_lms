@@ -12,8 +12,8 @@
     <tbody>  
         <tr>
             <td>
-          {{article.title}} <br>
-            By {{article.posted_by}}, {{article.posted_on|timesince}} ago.
+                <a href="{% url 'post' article.id %}">{{article.title}}<br></a>
+                <small>By {{article.posted_by}}, {{article.posted_on|timesince}} ago.</small>
             </td>
             <td>
                 {{article.category}}

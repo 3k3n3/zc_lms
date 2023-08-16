@@ -11,6 +11,7 @@ from .forms import (
     ArticleCreationForm,
 )
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
 from notifications.signals import notify
 
 # from django.contrib.auth import login,logout
@@ -87,8 +88,11 @@ def dashboard(request):
         return redirect("m_dashboard")
     student_id = Student.objects.get(username__username=request.user).student_id
     track = request.user.track
-    article = Article.objects.all()
-    task = Task.objects.filter(Q(audience=track) | Q(audience="General"))
+    # Show only the latest 5 posts and tasks
+    article = Article.objects.all().order_by("-updated_on")[:5]
+    task = Task.objects.filter(Q(audience=track) | Q(audience="General")).order_by(
+        "-updated_on"
+    )[:5]
     submission = Submission.objects.filter(submitted_by__username=request.user)
     total_score = sum([s.score for s in submission])
     total_weight = sum([t.weight for t in task])
@@ -148,6 +152,15 @@ def posts(request):
         "article": article,
     }
     return render(request, "articles.html", context)
+
+
+def read_posts(request, pk):
+    """Read individual posts/articles."""
+    article = get_object_or_404(Article, id=pk)
+    context = {
+        "article": article,
+    }
+    return render(request, "read_article.html", context)
 
 
 def tasks(request):
