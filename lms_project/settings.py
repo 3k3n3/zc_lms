@@ -120,7 +120,7 @@ DATABASES = {
         "OPTIONS": {
             "sslmode": "verify-full",
             "sslrootcert": BASE_DIR / "root.crt",
-        }
+        },
         # local dbsqlite3
         # "ENGINE": "django.db.backends.sqlite3",
         # "NAME": BASE_DIR / "db.sqlites3",
