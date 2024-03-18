@@ -21,7 +21,7 @@ import cloudinary.api
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -29,16 +29,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("SECRET_KEY")
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-
-ALLOWED_HOSTS = ["127.0.0.1", ".vercel.app"]
-
-# Debug Toolbar
-INTERNAL_IPS = [
-    "127.0.0.1",
-]
 
 # Application definition
 
@@ -65,23 +55,8 @@ INSTALLED_APPS = [
     "cloudinary",
     "taggit",
     "notifications",
-    # local only
-    "debug_toolbar",
     # api
     "rest_framework",
-]
-
-MIDDLEWARE = [
-    "django.middleware.security.SecurityMiddleware",
-    "django.contrib.sessions.middleware.SessionMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",  # WhiteNoise
-    "debug_toolbar.middleware.DebugToolbarMiddleware",  # Debug Toolbar
-    "django.middleware.common.CommonMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",
-    "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "django.contrib.messages.middleware.MessageMiddleware",
-    "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "accounts.middleware.RedirectLoggedInMiddleware",  # Redirect logged in users
 ]
 
 ROOT_URLCONF = "lms_project.urls"
@@ -103,30 +78,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "lms_project.wsgi.application"
-
-
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "URL": os.environ.get("URL"),
-        "NAME": os.environ.get("NAME"),
-        "USER": os.environ.get("USER"),
-        "PASSWORD": os.environ.get("PASSWORD"),
-        "HOST": os.environ.get("HOST"),
-        "PORT": os.environ.get("PORT"),
-        "OPTIONS": {
-            "sslmode": "verify-full",
-            "sslrootcert": BASE_DIR / "root.crt",
-        },
-        # local dbsqlite3
-        # "ENGINE": "django.db.backends.sqlite3",
-        # "NAME": BASE_DIR / "db.sqlites3",
-    }
-}
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -217,14 +168,6 @@ TINYMCE_DEFAULT_CONFIG = {
     "menubar": False,
     "statusbar": False,
 }
-
-# Email config
-EMAIL_BACKEND = os.environ.get("EMAIL_BACKEND")
-EMAIL_HOST = os.environ.get("EMAIL_HOST")
-EMAIL_PORT = os.environ.get("EMAIL_PORT")
-EMAIL_USE_SSL = os.environ.get("EMAIL_USE_SSL")
-EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 
 REST_FRAMEWORK = {
     # "DEFAULT_PERMISSION_CLASSES": [
